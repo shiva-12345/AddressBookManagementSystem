@@ -43,7 +43,7 @@ namespace AddressBookSystem
 
 
         // initialize book if not present allready
-        public static void addRecord(string bookName)
+        public static void addBook(string bookName)
         {
             if (!Program.addressBookStore.ContainsKey(bookName))
             {
@@ -59,12 +59,11 @@ namespace AddressBookSystem
             if (Program.addressBookStore.ContainsKey(bookToEdit))
             {
                 List<Contact> book = Program.addressBookStore[bookToEdit];
-
                 foreach (Contact record in book)
                 {
                     if (book.Contains(record))
                     {
-                        if (record.first_name == recordNameToEdit)
+                        if (record.first_name.Equals(recordNameToEdit))
                         {
                             Console.WriteLine("Select Which Data You Want To Update \n1.First_Name \n2.Last_Name \n3.Address" +
                                                    "\n4.City \n5.State \n6.Zip \n7.PhoneNumber \n8.Email");
@@ -134,10 +133,10 @@ namespace AddressBookSystem
                             }
                             break;
                         }
-                        else
-                        {
-                            Console.WriteLine("First_Name: " + record.first_name + " not Exist");
-                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("First_Name: " + record.first_name + " not Exist");
                     }
                 }
             }
@@ -145,11 +144,35 @@ namespace AddressBookSystem
             {
                 Console.WriteLine("No Such BookAddress Found");
             }
+        }
 
+        public static void deleteRecord(String nameOfRecordToDelete, String bookThatHasRecord)
+        {
+            if (Program.addressBookStore.ContainsKey(bookThatHasRecord))
+            {
+                List<Contact> book = Program.addressBookStore[bookThatHasRecord];
+                if (Program.addressBookStore.ContainsKey(bookThatHasRecord))
+                {
+                    foreach (Contact record in book)
+                    {
+                        if (record.first_name.Equals(nameOfRecordToDelete))
+                        {
+                            book.Remove(record);
+                            Console.WriteLine("Your Record Deleted :");
+                            break;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine(bookThatHasRecord + " Book Not Found !");
+            }
 
 
         }
 
 
     }
-}
+}s
